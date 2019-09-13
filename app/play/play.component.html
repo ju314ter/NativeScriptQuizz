@@ -1,0 +1,57 @@
+<ActionBar title="Vrai ou Faux ?!? Sauras-tu deviner ? (amazing)" class="text action-bar">
+</ActionBar>
+
+<FlexboxLayout *ngIf="!isAlive">
+	<StackLayout class="center">
+		<Label style=" color: red; font-size: 18; font-weight: bold; font-family: 'Varana'; padding: 35px;"
+			text="Game OVER">
+		</Label>
+		<Button text="Rejouer" class="optionsNavButton" (tap)="navigateToPlay()"></Button>
+		<Button text="Abandonner" class="answerButton" (tap)="giveUp()"></Button>
+	</StackLayout>
+</FlexboxLayout>
+
+<FlexboxLayout *ngIf="isOver">
+	<StackLayout>
+		<Label style="color: blue; font-size: 18; font-weight: bold; font-family: 'Varana'; padding: 35px;"
+			text="Fini ! Bien joué votre score final est de {{score}}">
+		</Label>
+		<Button text="Enregistrer le score et revenir à l'acceuil" class="answerButton" (tap)="giveUp(true)"></Button>
+	</StackLayout>
+</FlexboxLayout>
+
+<FlexboxLayout *ngIf="isAlive && !isOver" class="flexPage">
+	<FlexboxLayout class="top-panel">
+		<StackLayout class="topScoreBlock">
+			<Label
+				text="Score : {{score}}"
+				style="color: lightgreen; font-size: 18; font-weight: bold; font-family: 'Varana'; padding: 5px;"></Label>
+		</StackLayout>
+		<StackLayout class="topLifeBlock" *ngFor="let life of lifes">
+			<Image src="https://image.noelshack.com/fichiers/2019/37/5/1568386679-heart-compressor.png" class="icon">
+			</Image>
+		</StackLayout>
+	</FlexboxLayout>
+	<FlexboxLayout class="middle-panel">
+		<Label *ngIf="!hasAnswered" [text]="question.label" class="text" textWrap="true"></Label>
+		<Image (tap)="nextQuestion()" *ngIf="question.imgPath" [src]="question.imgPath" class="imgQuestion"
+			stretch="aspectFit"></Image>
+		<StackLayout *ngIf="hasAnswered && goodAnswer">
+			<Label class="text" style="color: green; margin-bottom: 20px;" [text]="question.sucessText" textWrap="true"></Label>
+			<Button text="Question suivante" (tap)="nextQuestion()"></Button>
+		</StackLayout>
+		<StackLayout *ngIf="hasAnswered && !goodAnswer">
+			<Label class="text" style="color: rgb(228, 56, 4); margin-bottom: 20px;" [text]="question.failText" textWrap="true"></Label>
+			<Button text="Question suivante" (tap)="nextQuestion()"></Button>
+		</StackLayout>
+	</FlexboxLayout>
+	<FlexboxLayout class="bottom-panel" *ngIf="!hasAnswered">
+		<Button text="Vrai" class="trueButton" (tap)="checkAnswer(true)"></Button>
+		<StackLayout *ngFor="let joker of jokers">
+			<Image (tap)="nextQuestion(true)"
+				src="https://image.noelshack.com/fichiers/2019/37/5/1568386678-joker-compressor.png" class="icon"
+				stretch="aspectFit"></Image>
+		</StackLayout>
+		<Button text="Faux" class="falseButton" (tap)="checkAnswer(false)"></Button>
+	</FlexboxLayout>
+</FlexboxLayout>

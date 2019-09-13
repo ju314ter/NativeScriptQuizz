@@ -1,0 +1,15 @@
+<Page actionBarHidden="true">
+    <Page.action-bar>
+        <ActionBar title="Quizz De La Mort Ki Tue" class="action-bar"></ActionBar>
+    </Page.action-bar>
+    <FlexboxLayout class="flexPage">
+        <FlexboxLayout class="topView">
+            <Button text="Jouer" class="defaultNavButton" (tap)="navigateToPlay()"></Button>
+            <Button text="Classement" class="defaultNavButton" (tap)="navigateToRanking()"></Button>
+            <Button text="Proposer une question" class="defaultNavButton" (tap)="navigateToAsk()"></Button>
+        </FlexboxLayout>
+        <FlexboxLayout class="bottomView">
+            <Button text="Options" class="optionsNavButton" (tap)="navigateToOptions()"></Button>
+        </FlexboxLayout>
+    </FlexboxLayout>
+</Page>
